@@ -30,8 +30,8 @@ ElemType Popstack(struct SqStack *S, int n, int outcar){
 		temp->top++;
 		temp->stack[temp->top] = S->stack[S->top];
 		S->top--;
-	}//ºóÃæµÄ³µ¸øÒª³öÈ¥µÄ³µÈÃµÀ£¬ÔÝÊ±Í£µ½ÁíÒ»¸öÕ»Àï 
-	out = S->stack[S->top];//´ËÊ±outcarÔÚÕ»¶¥ 
+	}//åŽé¢çš„è½¦ç»™è¦å‡ºåŽ»çš„è½¦è®©é“ï¼Œæš‚æ—¶åœåˆ°å¦ä¸€ä¸ªæ ˆé‡Œ 
+	out = S->stack[S->top];//æ­¤æ—¶outcaråœ¨æ ˆé¡¶ 
 	S->top--;
 	while(temp->top != -1){
 		S->top++;
@@ -39,7 +39,7 @@ ElemType Popstack(struct SqStack *S, int n, int outcar){
 		temp->top--;
 	}
 	return out;
-}//Ä³Á¾³µ³öÕ»£¬²¢·µ»ØËüµÄÐÅÏ¢£¬ÓÃÀ´½áËãÍ£³µ·Ñ¡£ 
+}//æŸè¾†è½¦å‡ºæ ˆï¼Œå¹¶è¿”å›žå®ƒçš„ä¿¡æ¯ï¼Œç”¨æ¥ç»“ç®—åœè½¦è´¹ã€‚ 
 
 int main(){
 	char info;
@@ -52,19 +52,19 @@ int main(){
 	p = (ElemType *)malloc(sizeof(ElemType));
 	struct SqStack *S;
 	struct SqQueue *Q;
-	S = (struct SqStack *)malloc(sizeof(struct SqStack));///¸øÖ¸Õë·ÖÅä¿Õ¼ä°¡£¡£¡£¡ 
+	S = (struct SqStack *)malloc(sizeof(struct SqStack));///ç»™æŒ‡é’ˆåˆ†é…ç©ºé—´å•Šï¼ï¼ï¼ 
 	Q = (struct SqQueue *)malloc(sizeof(struct SqQueue));
 	printf("Input the length of parking lot, waiting lot and the price:\n");
 	scanf("%d,%d,%d",&n,&m,&pr);
 	S->stacksize = n;
-	S->stack = (ElemType *)malloc(n*sizeof(ElemType));//³¤ÎªnµÄÕ» 
+	S->stack = (ElemType *)malloc(n*sizeof(ElemType));//é•¿ä¸ºnçš„æ ˆ 
 	S->top = -1;
 	Q->front = (ElemType *)malloc(sizeof(ElemType));
 	Q->rear = (ElemType *)malloc(sizeof(ElemType));
 	Q->front = NULL;
 	Q->rear = NULL;	
 	printf("Input the status of cars:\n");
-	getchar();///¶à¸öscanf³öÏÖµÄÊ±ºòÓÈÆäµ±scnafµÚ1¸öÊÇ%cÊ±ÒªÐ¡ÐÄ ÉÏÒ»¸öscanfÊäÍêºóÊäÈëµÄ»Ø³µ»á±»ÏÂÒ»¸öscanfµ±×÷%cÄÃ×ß! 
+	getchar();///å¤šä¸ªscanfå‡ºçŽ°çš„æ—¶å€™å°¤å…¶å½“scnafç¬¬1ä¸ªæ˜¯%cæ—¶è¦å°å¿ƒ ä¸Šä¸€ä¸ªscanfè¾“å®ŒåŽè¾“å…¥çš„å›žè½¦ä¼šè¢«ä¸‹ä¸€ä¸ªscanfå½“ä½œ%cæ‹¿èµ°! 
 	scanf("%c,%d,%d",&info, &plate, &time);
 	if(info == 'E'){
 		printf("Done.\n");
@@ -87,14 +87,14 @@ int main(){
 				p->plate = plate;
 				p->time = time;
 				if(Q->front == NULL){
-					Q->front = Q->rear = p; //Q->front Ò²·ÅÖµ £¨NULL->nextÊÇ²»¶ÔµÄ£© 
+					Q->front = Q->rear = p; //Q->front ä¹Ÿæ”¾å€¼ ï¼ˆNULL->nextæ˜¯ä¸å¯¹çš„ï¼‰ 
 					Q->rear->next = NULL;
 				}
 				else {
 					Q->rear->next = p;
 					Q->rear = p;
-					Q->rear->next = NULL; //Á´±íÎ²µÄnextÖÃ³ÉNULL£¬·½±ã±ãÀûµÄÊ±ºòÍË³öwhileÑ­»·£¨µÚ128ÐÐ£© 
-				}  //Èë¶ÓÁÐ
+					Q->rear->next = NULL; //é“¾è¡¨å°¾çš„nextç½®æˆNULLï¼Œæ–¹ä¾¿ä¾¿åˆ©çš„æ—¶å€™é€€å‡ºwhileå¾ªçŽ¯ï¼ˆç¬¬128è¡Œï¼‰ 
+				}  //å…¥é˜Ÿåˆ—
 				Qlength++;
 			}
 			else printf("The parking lot and the waiting lot are all full. Please find another place to park.");
@@ -104,15 +104,15 @@ int main(){
 				if(plate == S->stack[i].plate){
 					outcar = i;
 				}
-			}// ÕÒµ½ÒªÀë¿ªµÄcarÔÚÕ»ÖÐµÄÎ»ÖÃ 
-			out = Popstack(S,n,outcar);//¼ÇÏÂËüµÄÐÅÏ¢
+			}// æ‰¾åˆ°è¦ç¦»å¼€çš„caråœ¨æ ˆä¸­çš„ä½ç½® 
+			out = Popstack(S,n,outcar);//è®°ä¸‹å®ƒçš„ä¿¡æ¯
 			printf("The car has been in the parking lot for %d minutes.\n", (time - out.time));
 			printf("The fee is %d dollars.\n", pr*(time - out.time));
 			if(Q->front != NULL) {
 				S->top++;
 				S->stack[S->top] = *Q->front;
 				Q->front = Q->front->next;
-				Qlength--;  //waiting lotÀïµÄµÚÒ»Á¾³µ½øparking lot 
+				Qlength--;  //waiting loté‡Œçš„ç¬¬ä¸€è¾†è½¦è¿›parking lot 
 			}
 			break;
 		case 'P' :
